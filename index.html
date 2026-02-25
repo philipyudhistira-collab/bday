@@ -1,1 +1,51 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Birthday Card Animation</title>\n    <style>\n        body { font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 0; padding: 0; }\n        .envelope { animation: openEnvelope 2s forwards; }\n        .poem, .card, .message { display: none; }\n        @keyframes openEnvelope { 0% { transform: scale(0); } 100% { transform: scale(1); } }\n        @keyframes showCard { from { opacity: 0; } to { opacity: 1; } }\n    </style>\n</head>\n<body>\n    <div class="envelope">\n        <h2>Happy Birthday!</h2>\n        <p>It's time to celebrate!</p>\n    </div>\n    <div class="poem">\n        <h3>A Birthday Poem</h3>\n        <p>On this special day,\n        We celebrate you, in every way.\n        With joy and laughter, we all say,\n        Happy birthday to you, hip hip hooray!</p>\n    </div>\n    <div class="card">\n        <h2>Birthday Card</h2>\n        <p>Wishing you a day filled with joy,\n        Love from all, and gifts to enjoy!</p>\n    </div>\n    <div class="message">\n        <h2>Special Message</h2>\n        <p>May all your dreams come true,\n        Happy Birthday to you!</p>\n    </div>\n    <script>\n        document.querySelector('.envelope').addEventListener('animationend', function() {\n            document.querySelector('.poem').style.display = 'block';\n            setTimeout(() => {\n                document.querySelector('.poem').style.display = 'none';\n                document.querySelector('.card').style.display = 'block';\n            }, 2000);\n        });\n    </script>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Card Animation</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+        .balloon {
+            position: absolute;
+            top: -50px;
+            width: 50px;
+            height: 70px;
+            background-color: #ff6347;
+            border-radius: 50% 50% 45% 45%;
+            animation: float 5s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+            100% { transform: translateY(0); }
+        }
+        .message {
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="balloon"></div>
+        <h1 class="message">Happy Birthday!</h1>
+        <p>Wishing you a day filled with love and joy!</p>
+    </div>
+</body>
+</html>
