@@ -6,46 +6,116 @@
     <title>Birthday Card Animation</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
             font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            overflow: hidden;
         }
-        .card {
+
+        .envelope {
+            width: 300px;
+            height: 200px;
             background-color: #fff;
-            padding: 20px;
+            border: 2px solid #ccc;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
             position: relative;
+            margin: 50px auto;
+            transition: transform 0.5s ease;
+            cursor: pointer;
         }
-        .balloon {
+
+        .open {
+            transform: rotateX(180deg);
+        }
+
+        .content {
+            display: none;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .poem {
+            animation: stagger 1s ease forwards;
+        }
+
+        @keyframes stagger {
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .birthday-card {
+            display: none;
             position: absolute;
-            top: -50px;
-            width: 50px;
-            height: 70px;
-            background-color: #ff6347;
-            border-radius: 50% 50% 45% 45%;
-            animation: float 5s ease-in-out infinite;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            background-color: #f0c4a9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+        .floating-photo {
+            animation: float 5s ease infinite;
+        }
+
         @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-30px); }
-            100% { transform: translateY(0); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
-        .message {
-            font-size: 24px;
-            color: #333;
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            animation: fall 3s ease forwards;
+        }
+
+        @keyframes fall {
+            0% { top: -50px; opacity: 1; }
+            100% { top: 100%; opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="balloon"></div>
-        <h1 class="message">Happy Birthday!</h1>
-        <p>Wishing you a day filled with love and joy!</p>
+    <div class="envelope" onclick="this.classList.toggle('open'); showPoem();">
+        <div class="content" id="poem">
+            <h2>Happy Birthday!</h2>
+            <p>On this special day,</p>
+            <p>We celebrate you in every way,</p>
+            <p>From laughter to cheer,</p>
+            <p>We hold you dear.</p>
+        </div>
+        <div class="birthday-card" id="card">
+            <img class="floating-photo" src="birthday_photo.jpg" alt="Birthday Photo" />
+            <h1>Wishing you a year of blessings!</h1>
+        </div>
+    </div>
+    <div class="hearts" id="hearts">
+        <script>
+            function showPoem() {
+                document.getElementById('poem').style.display = 'block';
+                setTimeout(() => { document.getElementById('card').style.display = 'block'; }, 1000);
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                for (let i = 0; i < 30; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDelay = Math.random() * 3 + 's';
+                    document.getElementById('hearts').appendChild(heart);
+                }
+            });
+        </script>
     </div>
 </body>
 </html>
